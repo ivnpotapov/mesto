@@ -1,0 +1,7 @@
+.pop-profile__label-input {
+  margin: 30px 0 0 0;
+}
+
+.pop-profile__label-input:first-child {
+  margin: 0;
+}

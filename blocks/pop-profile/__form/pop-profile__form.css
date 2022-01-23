@@ -1,0 +1,11 @@
+.pop-profile__form {
+  display: flex;
+  flex-direction: column;
+  padding: 75px 0 0 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .pop-profile__form {
+    padding: 48px 0 0 0;
+  }
+}
