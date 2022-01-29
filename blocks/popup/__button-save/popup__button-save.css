@@ -1,4 +1,4 @@
-.pop-profile__button-save {
+.popup__button-save {
   min-height: 46px;
   font-size: 14px;
   line-height: 17px;
@@ -10,12 +10,12 @@
   padding: 0;
   margin: 45px 0 0 0;
 }
-.pop-profile__button-save:hover {
+.popup__button-save:hover {
   cursor: pointer;
   opacity: 0.8;
 }
 @media screen and (min-width: 1024px) {
-  .pop-profile__button-save {
+  .popup__button-save {
     min-height: 50px;
     font-size: 18px;
     line-height: 22px;
