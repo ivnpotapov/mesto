@@ -69,7 +69,7 @@ function deleteCard(e) {
 
 function openFullImg(e) {
   const imgData = e.target
-  fullImgLabel.textContent = imgData.closest('.element').querySelector('.element__name').textContent
+  fullImgLabel.textContent = imgData.alt
   fullImg.src = imgData.src
   fullImg.alt = imgData.alt
   openPopup(fullImgPopup)
@@ -103,7 +103,7 @@ function renderInitialCards(initialCards) {
 renderInitialCards(initialCards)
 
 // profile
-profileButtonEdit.addEventListener('mousedown', () => {
+profileButtonEdit.addEventListener('click', () => {
   inputName.value = profileName.textContent
   inputJob.value = profileJob.textContent
   openPopup(profilePopup)
@@ -121,7 +121,7 @@ profileForm.addEventListener('submit', (e) => {
 })
 
 // addCard
-addCardButton.addEventListener('mousedown', () => {
+addCardButton.addEventListener('click', () => {
   openPopup(addCardPopup)
 })
 
@@ -133,6 +133,7 @@ addCardForm.addEventListener('submit', (e) => {
   e.preventDefault()
   renderCard({ cardTitle: inputTitle.value, cardLink: inputLink.value })
   closePopup(addCardPopup)
+  addCardForm.reset()
 })
 
 // fullImg
