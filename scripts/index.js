@@ -1,3 +1,4 @@
+// start cards
 const initialCards = [
   {
     cardTitle: 'Архыз',
