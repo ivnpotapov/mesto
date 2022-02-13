@@ -35,7 +35,7 @@ const profileName = document.querySelector('.profile__name-text')
 const profileJob = document.querySelector('.profile__job')
 const profilePopup = document.querySelector('.popup_name_profile')
 const profileForm = document.querySelector('.popup_name_profile .popup__form')
-const inputName = document.querySelector('.popup__input[name="name"]')
+const inputName = document.querySelector('.popup__input[name="username"]')
 const inputJob = document.querySelector('.popup__input[name="job"]')
 const profilePopupClose = document.querySelector('.popup_name_profile .popup__close-icon')
 
@@ -51,12 +51,28 @@ const fullImg = document.querySelector('.popup__img')
 const fullImgLabel = document.querySelector('.popup__img-label')
 const fullImgPopupClose = document.querySelector('.popup_name_img .popup__close-icon')
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened')
-}
-
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
+  popup.removeEventListener('click', closePopupByOverlay)
+  document.removeEventListener('keydown', closePopupByESC)
+}
+
+function closePopupByESC(e) {
+  if (e.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'))
+  }
+}
+
+function closePopupByOverlay(e) {
+  if (e.target === e.currentTarget) {
+    closePopup(e.target)
+  }
+}
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened')
+  popup.addEventListener('click', closePopupByOverlay)
+  document.addEventListener('keydown', closePopupByESC)
 }
 
 function likeCard(e) {
@@ -140,3 +156,10 @@ addCardForm.addEventListener('submit', (e) => {
 fullImgPopupClose.addEventListener('click', () => {
   closePopup(fullImgPopup)
 })
+
+// document.addEventListener('click', (e, popup) => {
+//   closePopupByESC(e, popup)
+// })
+// document.addEventListener('keydown', (e, popup) => {
+//   closePopupByOverlay(e, popup)
+// })

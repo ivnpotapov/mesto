@@ -1,0 +1,9 @@
+.popup__error {
+  min-height: 15px;
+  display: block;
+  visibility: hidden;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+  margin: 5px 0 0 0;
+}

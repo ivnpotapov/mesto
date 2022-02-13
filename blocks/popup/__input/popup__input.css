@@ -6,3 +6,7 @@
   line-height: 17px;
   padding: 4px 0 4px 4px;
 }
+
+.popup__input:focus {
+  outline: 0;
+}

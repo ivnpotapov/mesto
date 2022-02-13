@@ -49,14 +49,30 @@
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form" name="profile">
               <label class="popup__label-input">
-                <input type="text" class="popup__input" value="" name="name" required />
+                <input
+                  type="text"
+                  class="popup__input"
+                  value=""
+                  name="username"
+                  minlength="2"
+                  maxlength="40"
+                  required
+                />
+                <span class="popup__error popup__username-error"></span>
               </label>
               <label class="popup__label-input">
-                <input type="text" class="popup__input" value="" name="job" required />
+                <input
+                  type="text"
+                  class="popup__input"
+                  value=""
+                  name="job"
+                  minlength="2"
+                  maxlength="200"
+                  required
+                />
+                <span class="popup__error popup__job-error"></span>
               </label>
-              <button type="submit" class="popup__button-save" aria-label="сохранить">
-                Сохранить
-              </button>
+              <button type="submit" class="popup__button" aria-label="сохранить">Сохранить</button>
             </form>
           </div>
         </section>
@@ -73,20 +89,24 @@
                   value=""
                   name="title"
                   placeholder="Название"
+                  minlength="2"
+                  maxlength="30"
                   required
                 />
+                <span class="popup__error popup__title-error"></span>
               </label>
               <label class="popup__label-input">
                 <input
-                  type="text"
+                  type="url"
                   class="popup__input"
                   value=""
                   name="link"
                   placeholder="Ссылка на картинку"
                   required
                 />
+                <span class="popup__error popup__link-error"></span>
               </label>
-              <button type="submit" class="popup__button-save" aria-label="Создать">Создать</button>
+              <button type="submit" class="popup__button" aria-label="Создать">Создать</button>
             </form>
           </div>
         </section>
@@ -105,5 +125,6 @@
       </footer>
     </div>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
