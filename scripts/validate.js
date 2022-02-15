@@ -49,6 +49,9 @@ const setEventListeners = (formElement, { inputSelector, submitButtonSelector, .
     profileButtonEdit.addEventListener('click', () => {
       toggleButtonState(inputList, buttonElement, restConfig)
     })
+    addCardForm.addEventListener('submit', (e) => {
+      toggleButtonState(inputList, buttonElement, restConfig)
+    })
   })
 }
 

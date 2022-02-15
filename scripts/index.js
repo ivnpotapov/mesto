@@ -55,10 +55,10 @@ const fullImgPopupClose = document.querySelector('.popup_name_img .popup__close-
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
   popup.removeEventListener('click', closePopupByOverlay)
-  document.removeEventListener('keydown', closePopupByESC)
+  document.removeEventListener('keydown', closePopupByEsc)
 }
 
-function closePopupByESC(e) {
+function closePopupByEsc(e) {
   if (e.key === 'Escape') {
     closePopup(document.querySelector('.popup_opened'))
   }
@@ -73,7 +73,7 @@ function closePopupByOverlay(e) {
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   popup.addEventListener('click', closePopupByOverlay)
-  document.addEventListener('keydown', closePopupByESC)
+  document.addEventListener('keydown', closePopupByEsc)
 }
 
 function likeCard(e) {
@@ -152,15 +152,9 @@ addCardForm.addEventListener('submit', (e) => {
   closePopup(addCardPopup)
   addCardForm.reset()
 })
+// добавил фукционал из замечания в setEventListeners в validate.js проблема с кнопкой устранена
 
 // fullImg
 fullImgPopupClose.addEventListener('click', () => {
   closePopup(fullImgPopup)
 })
-
-// document.addEventListener('click', (e, popup) => {
-//   closePopupByESC(e, popup)
-// })
-// document.addEventListener('keydown', (e, popup) => {
-//   closePopupByOverlay(e, popup)
-// })
