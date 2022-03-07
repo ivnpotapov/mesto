@@ -1,3 +1,6 @@
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
+
 // start cards
 const initialCards = [
   {
@@ -28,7 +31,15 @@ const initialCards = [
   },
 ]
 
-const templateCard = document.querySelector('#template-card').content
+const configValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  errorClass: 'popup__error_visible',
+  inputErrorClass: 'popup__input_type_error',
+  inactiveButtonClass: 'popup__button_disabled',
+}
+
 const elements = document.querySelector('.elements')
 
 const profileButtonEdit = document.querySelector('.profile__button-edit')
@@ -48,8 +59,6 @@ const inputLink = document.querySelector('.popup__input[name="link"]')
 const addCardPopupClose = document.querySelector('.popup_name_add .popup__close-icon')
 
 const fullImgPopup = document.querySelector('.popup_name_img')
-const fullImg = document.querySelector('.popup__img')
-const fullImgLabel = document.querySelector('.popup__img-label')
 const fullImgPopupClose = document.querySelector('.popup_name_img .popup__close-icon')
 
 function closePopup(popup) {
@@ -76,41 +85,8 @@ function openPopup(popup) {
   document.addEventListener('keydown', closePopupByEsc)
 }
 
-function likeCard(e) {
-  e.target.classList.toggle('element__button-like_active')
-}
-
-function deleteCard(e) {
-  e.target.closest('.element').remove()
-}
-
-function openFullImg(e) {
-  const imgData = e.target
-  fullImgLabel.textContent = imgData.alt
-  fullImg.src = imgData.src
-  fullImg.alt = imgData.alt
-  openPopup(fullImgPopup)
-}
-
-function addListeners(card) {
-  card.querySelector('.element__button-like').addEventListener('click', likeCard)
-  card.querySelector('.element__trash').addEventListener('click', deleteCard)
-  card.querySelector('.element__image').addEventListener('click', openFullImg)
-}
-
-function createCard(newCard) {
-  const card = templateCard.cloneNode(true),
-    cardImage = card.querySelector('.element__image')
-
-  card.querySelector('.element__name').textContent = newCard.cardTitle
-  cardImage.src = newCard.cardLink
-  cardImage.alt = newCard.cardTitle
-  addListeners(card)
-  return card
-}
-
 function renderCard(newCard) {
-  elements.prepend(createCard(newCard))
+  elements.prepend(new Card(newCard, '.template-card', openPopup, fullImgPopup).createCard())
 }
 
 function renderInitialCards(initialCards) {
@@ -152,9 +128,23 @@ addCardForm.addEventListener('submit', (e) => {
   closePopup(addCardPopup)
   addCardForm.reset()
 })
-// добавил фукционал из замечания в setEventListeners в validate.js проблема с кнопкой устранена
 
 // fullImg
 fullImgPopupClose.addEventListener('click', () => {
   closePopup(fullImgPopup)
 })
+
+function validation(configValidation) {
+  const formList = Array.from(document.querySelectorAll(configValidation.formSelector))
+
+  formList.forEach((formElement) => {
+    new FormValidator(
+      configValidation,
+      formElement,
+      profileButtonEdit,
+      addCardForm,
+    ).enableValidation()
+  })
+}
+
+validation(configValidation)
