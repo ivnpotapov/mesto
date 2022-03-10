@@ -30,18 +30,7 @@
           <button type="button" class="profile__button-plus" aria-label="добавить"></button>
         </section>
 
-        <section class="elements">
-          <template class="template-card">
-            <article class="element">
-              <img class="element__image" src="#" alt="#" />
-              <button type="button" class="element__trash" aria-label="Удалить"></button>
-              <div class="element__caption-area">
-                <h2 class="element__name"></h2>
-                <button type="button" class="element__button-like" aria-label="лайк"></button>
-              </div>
-            </article>
-          </template>
-        </section>
+        <section class="elements"></section>
 
         <!-- popups -->
         <section class="popup popup_name_profile">
@@ -125,6 +114,17 @@
         <p class="footer__text">© 2020 Mesto Russia</p>
       </footer>
     </div>
+
+    <template class="template-card">
+      <article class="element">
+        <img class="element__image" src="#" alt="#" />
+        <button type="button" class="element__trash" aria-label="Удалить"></button>
+        <div class="element__caption-area">
+          <h2 class="element__name"></h2>
+          <button type="button" class="element__button-like" aria-label="лайк"></button>
+        </div>
+      </article>
+    </template>
 
     <script type="module" src="./scripts/index.js"></script>
   </body>

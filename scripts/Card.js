@@ -8,15 +8,19 @@ class Card {
   }
 
   _getTemplate() {
-    return document.querySelector(this._templateCardSelector).content.querySelector('.element')
+    return document
+      .querySelector(this._templateCardSelector)
+      .content.querySelector('.element')
+      .cloneNode(true)
   }
 
-  _likeCard(e) {
-    e.target.classList.toggle('element__button-like_active')
+  _likeCard() {
+    this._buttonLike.classList.toggle('element__button-like_active')
   }
 
   _deleteCard() {
     this._element.remove()
+    this._element = null
   }
 
   _openFullImg() {
@@ -28,9 +32,9 @@ class Card {
   }
 
   _addListeners() {
-    this._element.querySelector('.element__button-like').addEventListener('click', (e) => {
-      this._likeCard(e)
-    })
+    this._buttonLike = this._element.querySelector('.element__button-like')
+
+    this._buttonLike.addEventListener('click', () => this._likeCard())
     this._element
       .querySelector('.element__trash')
       .addEventListener('click', () => this._deleteCard())
@@ -38,7 +42,7 @@ class Card {
   }
 
   createCard() {
-    this._element = this._getTemplate().cloneNode(true)
+    this._element = this._getTemplate()
     this._elementImage = this._element.querySelector('.element__image')
 
     this._element.querySelector('.element__name').textContent = this._cardTitle

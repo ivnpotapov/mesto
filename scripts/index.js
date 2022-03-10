@@ -40,7 +40,7 @@ const configValidation = {
   inactiveButtonClass: 'popup__button_disabled',
 }
 
-const elements = document.querySelector('.elements')
+const sectionForCards = document.querySelector('.elements')
 
 const profileButtonEdit = document.querySelector('.profile__button-edit')
 const profileName = document.querySelector('.profile__name-text')
@@ -51,15 +51,17 @@ const inputName = document.querySelector('.popup__input[name="username"]')
 const inputJob = document.querySelector('.popup__input[name="job"]')
 const profilePopupClose = document.querySelector('.popup_name_profile .popup__close-icon')
 
-const addCardButton = document.querySelector('.profile__button-plus')
-const addCardPopup = document.querySelector('.popup_name_add')
-const addCardForm = document.querySelector('.popup_name_add .popup__form')
+const cardAddButton = document.querySelector('.profile__button-plus')
+const cardAddPopup = document.querySelector('.popup_name_add')
+const cardAddForm = document.querySelector('.popup_name_add .popup__form')
 const inputTitle = document.querySelector('.popup__input[name="title"]')
 const inputLink = document.querySelector('.popup__input[name="link"]')
-const addCardPopupClose = document.querySelector('.popup_name_add .popup__close-icon')
+const cardAddPopupClose = document.querySelector('.popup_name_add .popup__close-icon')
 
-const fullImgPopup = document.querySelector('.popup_name_img')
-const fullImgPopupClose = document.querySelector('.popup_name_img .popup__close-icon')
+const imgFullPopup = document.querySelector('.popup_name_img')
+const imgFullPopupClose = document.querySelector('.popup_name_img .popup__close-icon')
+
+const formValidators = {}
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
@@ -85,8 +87,12 @@ function openPopup(popup) {
   document.addEventListener('keydown', closePopupByEsc)
 }
 
+function createCard(newCard) {
+  return new Card(newCard, '.template-card').createCard()
+}
+
 function renderCard(newCard) {
-  elements.prepend(new Card(newCard, '.template-card', openPopup, fullImgPopup).createCard())
+  sectionForCards.prepend(createCard(newCard))
 }
 
 function renderInitialCards(initialCards) {
@@ -111,39 +117,37 @@ profileForm.addEventListener('submit', (e) => {
   profileName.textContent = inputName.value
   profileJob.textContent = inputJob.value
   closePopup(profilePopup)
+  formValidators.profile.toggleButtonState()
 })
 
-// addCard
-addCardButton.addEventListener('click', () => {
-  openPopup(addCardPopup)
+// cardAdd
+cardAddButton.addEventListener('click', () => {
+  openPopup(cardAddPopup)
 })
 
-addCardPopupClose.addEventListener('click', () => {
-  closePopup(addCardPopup)
+cardAddPopupClose.addEventListener('click', () => {
+  closePopup(cardAddPopup)
 })
 
-addCardForm.addEventListener('submit', (e) => {
+cardAddForm.addEventListener('submit', (e) => {
   e.preventDefault()
   renderCard({ cardTitle: inputTitle.value, cardLink: inputLink.value })
-  closePopup(addCardPopup)
-  addCardForm.reset()
+  closePopup(cardAddPopup)
+  cardAddForm.reset()
+  formValidators.add.toggleButtonState()
 })
 
-// fullImg
-fullImgPopupClose.addEventListener('click', () => {
-  closePopup(fullImgPopup)
+// imgFull
+imgFullPopupClose.addEventListener('click', () => {
+  closePopup(imgFullPopup)
 })
 
 function validation(configValidation) {
   const formList = Array.from(document.querySelectorAll(configValidation.formSelector))
 
   formList.forEach((formElement) => {
-    new FormValidator(
-      configValidation,
-      formElement,
-      profileButtonEdit,
-      addCardForm,
-    ).enableValidation()
+    formValidators[`${formElement.name}`] = new FormValidator(configValidation, formElement)
+    formValidators[`${formElement.name}`].enableValidation()
   })
 }
 
