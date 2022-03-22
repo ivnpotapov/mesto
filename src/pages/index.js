@@ -21,6 +21,19 @@ import {
   formValidators,
 } from '../utils/constants.js'
 
+// validation
+
+function validation(configValidation) {
+  const formList = Array.from(document.querySelectorAll(configValidation.formSelector))
+
+  formList.forEach((formElement) => {
+    formValidators[`${formElement.name}`] = new FormValidator(configValidation, formElement)
+    formValidators[`${formElement.name}`].enableValidation()
+  })
+}
+
+validation(configValidation)
+
 // img Full
 
 const popupWithImage = new PopupWithImage(popupWithImageSelector)
@@ -39,7 +52,7 @@ const cardList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const cardElement = createCard(item, templateCardSelector, handleCardClick)
+      const cardElement = createCard(item)
       cardList.addItem(cardElement)
     },
   },
@@ -51,11 +64,14 @@ cardList.renderItems()
 // add card
 
 const cardAddForm = new PopupWithForm(cardAddPopupSelector, (item) => {
-  const cardElement = createCard(item, templateCardSelector, handleCardClick)
+  const cardElement = createCard(item)
   cardList.addItem(cardElement)
 })
 
-cardAddButton.addEventListener('click', () => cardAddForm.open())
+cardAddButton.addEventListener('click', () => {
+  formValidators.add.toggleButtonState()
+  cardAddForm.open()
+})
 
 // profile
 
@@ -68,18 +84,6 @@ profileButtonEdit.addEventListener('click', () => {
   const userInfos = userInfo.getUserInfo()
   inputName.value = userInfos.profileName
   inputJob.value = userInfos.profileJob
+  formValidators.profile.toggleButtonState()
   profileForm.open()
 })
-
-// validation
-
-function validation(configValidation) {
-  const formList = Array.from(document.querySelectorAll(configValidation.formSelector))
-
-  formList.forEach((formElement) => {
-    formValidators[`${formElement.name}`] = new FormValidator(configValidation, formElement)
-    formValidators[`${formElement.name}`].enableValidation()
-  })
-}
-
-validation(configValidation)
